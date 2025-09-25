@@ -8,12 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.lab2.data.model.Company
 import com.example.lab2.data.repository.CompanyRepository
 import kotlinx.coroutines.launch
-import okio.IOException
+import java.io.IOException
 
 sealed interface ResponseState {
     data class Success(val companies: List<Company>): ResponseState
     object Loading: ResponseState
-    object Error: ResponseState
+    data class Error(val msg: String?): ResponseState
 
 
 
@@ -30,8 +30,8 @@ class CompaniesViewModel: ViewModel() {
             responseState = try {
                 val response = repo.loadCompanies()
                 ResponseState.Success(response)
-            } catch (e: IOException) {
-                ResponseState.Error
+            } catch (e: Exception) {
+                ResponseState.Error(e.message)
             }
         }
     }

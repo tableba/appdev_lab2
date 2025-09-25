@@ -1,4 +1,6 @@
 plugins {
+    id("com.google.gms.google-services")
+
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -66,4 +68,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
+    // Firebase BOM (manages versions for you)
+
+    // Firebase Authentication (for ID tokens)
+    implementation("com.google.firebase:firebase-auth")
+
+    // Firestore SDK (if you also want to use SDK directly instead of REST)
+    implementation("com.google.firebase:firebase-firestore")
 }
